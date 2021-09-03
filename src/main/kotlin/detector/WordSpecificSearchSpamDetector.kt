@@ -15,9 +15,9 @@ class WordSpecificSearchSpamDetector(
 ) : SpamDetector {
 
     /**
-     * Performs spam detection. For testing purpose add sytentic delay to processing.
+     * Performs spam detection. For testing purpose add synthetic delay to processing.
      * Delay should be equal to size of text to process multiplied by 10 (each symbols takes 10 millisecond to process).
-     * Detection is case insensitive, so having marker 'spam' both texts 'Spam' and 'spam' are treated as spam.
+     * Detection is case-insensitive, so having marker 'spam' both texts 'Spam' and 'spam' are treated as spam.
      * @param text to process
      * @return deferred true if text contains any spam marker.
      */
