@@ -3,11 +3,11 @@ package detector
 import kotlinx.coroutines.*
 
 /**
- * Word specific spam detector takes markers that is usually words from spam letter.
+ * Word-specific spam detector takes marker, which are words usually found in spam letters.
  * Default value is 'spam' and 'advertisement'.
- * Detection should be performed asynchronously in the scope provided in constructor.
- * Text is treated as a spam if there is at least one marker presents.
- * In case markers is empty throw IllegalStateException because detector cannot be created without markers.
+ * Detection should be performed asynchronously in the scope provided in the constructor.
+ * Text is treated as spam if there is at least one marker present.
+ * In case markers are empty throw IllegalStateException because detector cannot be created without markers.
  */
 class WordSpecificSearchSpamDetector(
     private val scope: CoroutineScope = GlobalScope,
@@ -15,11 +15,11 @@ class WordSpecificSearchSpamDetector(
 ) : SpamDetector {
 
     /**
-     * Performs spam detection. For testing purpose add synthetic delay to processing.
-     * Delay should be equal to size of text to process multiplied by 10 (each symbols takes 10 millisecond to process).
-     * Detection is case-insensitive, so having marker 'spam' both texts 'Spam' and 'spam' are treated as spam.
+     * Performs spam detection. For testing purposes add synthetic delay to processing.
+     * Delay should be equal to the size of the text to process multiplied by 10 (each symbol takes 10 milliseconds to process).
+     * Detection is case-insensitive, so having 'spam' marker both texts, 'Spam' and 'spam', are treated as spam.
      * @param text to process
-     * @return deferred true if text contains any spam marker.
+     * @return deferred true if text contains any spam markers.
      */
     override suspend fun detectAsync(text: String): Deferred<Boolean> = TODO()
 
