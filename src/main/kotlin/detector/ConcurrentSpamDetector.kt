@@ -1,8 +1,7 @@
 package detector
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.GlobalScope
+import exception.SpamDetectedException
+import kotlinx.coroutines.*
 import processor.LetterProcessor
 
 /**
@@ -27,5 +26,11 @@ class ConcurrentSpamDetector(
      * @param text to process
      * @return deferred true if spam detected otherwise deferred false
      */
-    override suspend fun detectAsync(text: String): Deferred<Boolean> = TODO()
+    override suspend fun detectAsync(text: String): Deferred<Boolean> {
+        return scope.async {
+            letterProcessor.splitLetter(text).any {
+                spamDetector.detectAsync(it).await()
+            }
+        }
+    }
 }

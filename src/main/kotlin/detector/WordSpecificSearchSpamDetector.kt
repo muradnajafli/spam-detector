@@ -13,6 +13,11 @@ class WordSpecificSearchSpamDetector(
     private val scope: CoroutineScope = GlobalScope,
     private val spamMarkers: List<String> = listOf("spam", "advertisement")
 ) : SpamDetector {
+    init {
+        if (spamMarkers.isEmpty()) {
+            throw IllegalStateException("Detector cannot be created without markers.")
+        }
+    }
 
     /**
      * Performs spam detection. For testing purpose add synthetic delay to processing.
@@ -21,7 +26,16 @@ class WordSpecificSearchSpamDetector(
      * @param text to process
      * @return deferred true if text contains any spam marker.
      */
-    override suspend fun detectAsync(text: String): Deferred<Boolean> = TODO()
+    override suspend fun detectAsync(text: String): Deferred<Boolean> {
+        return scope.async {
+            val lowerCaseText = text.toLowerCase()
+            val containsSpam = spamMarkers.any {
+                lowerCaseText.contains(it)
+            }
+            delay(text.length * DELAY_PER_SYMBOL)
+            containsSpam
+        }
+    }
 
     private companion object {
         const val DELAY_PER_SYMBOL = 10L
