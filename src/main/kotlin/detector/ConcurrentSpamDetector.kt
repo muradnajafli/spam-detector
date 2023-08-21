@@ -1,6 +1,5 @@
 package detector
 
-import exception.SpamDetectedException
 import kotlinx.coroutines.*
 import processor.LetterProcessor
 
