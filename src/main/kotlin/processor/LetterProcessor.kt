@@ -14,7 +14,7 @@ class LetterProcessor(private val chunkSize: Int = CHUNK_SIZE) {
      */
     fun splitLetter(content: String): List<String> {
         val lines = content.lines()
-        return lines.chunked(chunkSize) { it.joinToString("\r\n") }
+        return lines.chunked(chunkSize) { it.joinToString(System.lineSeparator()) }
     }
 
     companion object {
